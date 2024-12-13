@@ -1,7 +1,8 @@
 from setuptools import find_packages, setup
 from typing import List
 
-HYPHEN_E_DOT = '-e .'
+HYPHEN_E_DOT = '-e .'  # Marker used in requirements.txt for editable installations
+
 # This function reads a requirements file and returns a list of dependencies.
 def get_requirement(file_path: str) -> List[str]:
     requirements = []  # Initialize an empty list to store requirements
@@ -9,6 +10,7 @@ def get_requirement(file_path: str) -> List[str]:
         requirements = file_obj.readlines()  # Read all lines from the file
         # Remove newline characters from each requirement
         requirements = [req.replace("\n", "") for req in requirements]
+        # Remove '-e .' if present, as it is specific to editable installations
         if HYPHEN_E_DOT in requirements:
             requirements.remove(HYPHEN_E_DOT)
     return requirements
